@@ -13,4 +13,3 @@ Clicks & Pops : Générer des impulsions aléatoires d'amplitude et durée vari�
 Thumps : Ajouter des basses fréquences résonantes lors de grosses rayures simulées.
 3. Autres effets spécifiques
 Simulation de réponse fréquentielle du haut-parleur de gramophone : Appliquer un filtre basé sur une réponse mesurée.
-Conversion Stéréo → Mono : Moyenne des canaux.
