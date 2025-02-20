@@ -20,8 +20,11 @@ void setup() {
 void loop() {
   int sensorValue = analogRead(A0);
   int sensorValue2 = analogRead(A1);
-  inyle.setParamValue("effet vinyle",0.1+(0.01*sensorValue));
-  inyle.setParamValue("saturation",0.01+(0.01*sensorValue));
+  
+
+  inyle.setParamValue("effet vinyle",(0.001*sensorValue));
+  inyle.setParamValue("saturation",0.01+(0.001*sensorValue));
+  inyle.setParamValue("Mix Saturation",0.001*sensorValue);
   delay(50);
   audioShield.volume(0.001*sensorValue2);
 }
