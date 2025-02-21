@@ -10400,21 +10400,18 @@ struct mydsp : public dsp {
 	float fConst28;
 	float fConst29;
 	float fConst30;
+	FAUSTFLOAT fHslider1;
+	float fVec3[2];
 	float fConst31;
 	float fConst32;
-	float fRec12[3];
-	float fRec11[3];
-	float fRec10[3];
-	float fRec9[3];
-	float fRec8[3];
+	float fRec8[2];
 	float fRec7[3];
-	FAUSTFLOAT fHslider1;
-	float fRec18[3];
-	float fRec17[3];
-	float fRec16[3];
-	float fRec15[3];
-	float fRec14[3];
-	float fRec13[3];
+	float fVec4[2];
+	float fConst33;
+	float fConst34;
+	float fConst35;
+	float fRec9[2];
+	FAUSTFLOAT fHslider2;
 	
 	mydsp() {
 	}
@@ -10470,7 +10467,7 @@ struct mydsp : public dsp {
 	}
 
 	virtual int getNumInputs() {
-		return 2;
+		return 1;
 	}
 	virtual int getNumOutputs() {
 		return 2;
@@ -10510,15 +10507,19 @@ struct mydsp : public dsp {
 		fConst26 = std::tan(47123.89f / fConst0);
 		fConst27 = 2.0f * (1.0f - 1.0f / mydsp_faustpower2_f(fConst26));
 		fConst28 = 1.0f / fConst26;
-		fConst29 = (fConst28 + -0.76536685f) / fConst26 + 1.0f;
-		fConst30 = 1.0f / ((fConst28 + 0.76536685f) / fConst26 + 1.0f);
-		fConst31 = (fConst28 + -1.847759f) / fConst26 + 1.0f;
-		fConst32 = 1.0f / ((fConst28 + 1.847759f) / fConst26 + 1.0f);
+		fConst29 = (fConst28 + -1.0f) / fConst26 + 1.0f;
+		fConst30 = 1.0f / ((fConst28 + 1.0f) / fConst26 + 1.0f);
+		fConst31 = 1.0f - fConst28;
+		fConst32 = 1.0f / (fConst28 + 1.0f);
+		fConst33 = 1.0f / std::tan(31.415926f / fConst0);
+		fConst34 = 1.0f - fConst33;
+		fConst35 = 1.0f / (fConst33 + 1.0f);
 	}
 	
 	virtual void instanceResetUserInterface() {
 		fHslider0 = FAUSTFLOAT(0.5f);
-		fHslider1 = FAUSTFLOAT(1.0f);
+		fHslider1 = FAUSTFLOAT(0.001f);
+		fHslider2 = FAUSTFLOAT(1.0f);
 	}
 	
 	virtual void instanceClear() {
@@ -10552,41 +10553,20 @@ struct mydsp : public dsp {
 		for (int l9 = 0; l9 < 3; l9 = l9 + 1) {
 			fRec1[l9] = 0.0f;
 		}
-		for (int l10 = 0; l10 < 3; l10 = l10 + 1) {
-			fRec12[l10] = 0.0f;
+		for (int l10 = 0; l10 < 2; l10 = l10 + 1) {
+			fVec3[l10] = 0.0f;
 		}
-		for (int l11 = 0; l11 < 3; l11 = l11 + 1) {
-			fRec11[l11] = 0.0f;
+		for (int l11 = 0; l11 < 2; l11 = l11 + 1) {
+			fRec8[l11] = 0.0f;
 		}
 		for (int l12 = 0; l12 < 3; l12 = l12 + 1) {
-			fRec10[l12] = 0.0f;
+			fRec7[l12] = 0.0f;
 		}
-		for (int l13 = 0; l13 < 3; l13 = l13 + 1) {
-			fRec9[l13] = 0.0f;
+		for (int l13 = 0; l13 < 2; l13 = l13 + 1) {
+			fVec4[l13] = 0.0f;
 		}
-		for (int l14 = 0; l14 < 3; l14 = l14 + 1) {
-			fRec8[l14] = 0.0f;
-		}
-		for (int l15 = 0; l15 < 3; l15 = l15 + 1) {
-			fRec7[l15] = 0.0f;
-		}
-		for (int l16 = 0; l16 < 3; l16 = l16 + 1) {
-			fRec18[l16] = 0.0f;
-		}
-		for (int l17 = 0; l17 < 3; l17 = l17 + 1) {
-			fRec17[l17] = 0.0f;
-		}
-		for (int l18 = 0; l18 < 3; l18 = l18 + 1) {
-			fRec16[l18] = 0.0f;
-		}
-		for (int l19 = 0; l19 < 3; l19 = l19 + 1) {
-			fRec15[l19] = 0.0f;
-		}
-		for (int l20 = 0; l20 < 3; l20 = l20 + 1) {
-			fRec14[l20] = 0.0f;
-		}
-		for (int l21 = 0; l21 < 3; l21 = l21 + 1) {
-			fRec13[l21] = 0.0f;
+		for (int l14 = 0; l14 < 2; l14 = l14 + 1) {
+			fRec9[l14] = 0.0f;
 		}
 	}
 	
@@ -10611,28 +10591,28 @@ struct mydsp : public dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("vinyle");
-		ui_interface->addHorizontalSlider("effet vinyle", &fHslider0, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.1f), FAUSTFLOAT(2.0f), FAUSTFLOAT(0.01f));
-		ui_interface->addHorizontalSlider("saturation", &fHslider1, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f), FAUSTFLOAT(25.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addHorizontalSlider("bsoft", &fHslider2, FAUSTFLOAT(1.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(2.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addHorizontalSlider("effet vinyle", &fHslider0, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.01f), FAUSTFLOAT(4.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("saturation", &fHslider1, FAUSTFLOAT(0.001f), FAUSTFLOAT(0.001f), FAUSTFLOAT(5.0f), FAUSTFLOAT(0.001f));
 		ui_interface->closeBox();
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
-		FAUSTFLOAT* input1 = inputs[1];
 		FAUSTFLOAT* output0 = outputs[0];
 		FAUSTFLOAT* output1 = outputs[1];
-		float fSlow0 = float(fHslider0);
+		float fSlow0 = mydsp_faustpower2_f(float(fHslider0));
 		float fSlow1 = float(fHslider1);
-		float fSlow2 = fConst30 * fSlow1;
-		float fSlow3 = 1.0f / tanhf(fSlow1);
+		float fSlow2 = 1.0f / tanhf(fSlow1);
+		float fSlow3 = float(fHslider2);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			iRec0[0] = 1103515245 * iRec0[1] + 12345;
 			float fTemp0 = float(iRec0[0]);
 			fVec0[0] = fTemp0;
-			int iTemp1 = (4.656613e-10f * fTemp0) > 0.998f;
+			int iTemp1 = (4.6566128e-12f * fTemp0) > 0.998f;
 			iVec1[0] = iTemp1;
 			int iTemp2 = iTemp1 - iVec1[1];
-			fRec6[0] = fConst20 * (4.656613e-10f * (fTemp0 + fVec0[1]) - fConst19 * fRec6[1]);
+			fRec6[0] = fConst20 * (4.6566128e-12f * (fTemp0 + fVec0[1]) - fConst19 * fRec6[1]);
 			fRec5[0] = fRec6[0] - fConst18 * (fConst17 * fRec5[2] + fConst12 * fRec5[1]);
 			fRec4[0] = fConst18 * (fRec5[2] + fRec5[0] + 2.0f * fRec5[1]) - fConst16 * (fConst14 * fRec4[2] + fConst12 * fRec4[1]);
 			float fTemp3 = fRec4[2] + fRec4[0] + 2.0f * fRec4[1];
@@ -10640,25 +10620,18 @@ struct mydsp : public dsp {
 			fRec3[0] = -(fConst23 * (fConst22 * fRec3[1] - fConst21 * (fTemp3 - fVec2[1])));
 			fRec2[0] = fRec3[0] - fConst10 * (fConst8 * fRec2[2] + fConst3 * fRec2[1]);
 			fRec1[0] = fConst24 * (fRec2[2] + (fRec2[0] - 2.0f * fRec2[1])) - fConst7 * (fConst5 * fRec1[2] + fConst3 * fRec1[1]);
-			float fTemp4 = fSlow0 * (fConst25 * (fRec1[2] + (fRec1[0] - 2.0f * fRec1[1])) + 0.1f * float(iTemp2 * (iTemp2 > 0)));
-			fRec12[0] = float(input0[i0]) - fConst32 * (fConst31 * fRec12[2] + fConst27 * fRec12[1]);
-			fRec11[0] = fConst32 * (fRec12[2] + fRec12[0] + 2.0f * fRec12[1]) - fConst30 * (fConst29 * fRec11[2] + fConst27 * fRec11[1]);
-			fRec10[0] = fConst30 * (fRec11[2] + fRec11[0] + 2.0f * fRec11[1]) - fConst32 * (fConst31 * fRec10[2] + fConst27 * fRec10[1]);
-			fRec9[0] = fConst32 * (fRec10[2] + fRec10[0] + 2.0f * fRec10[1]) - fConst30 * (fConst29 * fRec9[2] + fConst27 * fRec9[1]);
-			fRec8[0] = fConst30 * (fRec9[2] + fRec9[0] + 2.0f * fRec9[1]) - fConst32 * (fConst31 * fRec8[2] + fConst27 * fRec8[1]);
-			fRec7[0] = fConst32 * (fRec8[2] + fRec8[0] + 2.0f * fRec8[1]) - fConst30 * (fConst29 * fRec7[2] + fConst27 * fRec7[1]);
-			float fTemp5 = fRec7[2] + fRec7[0] + 2.0f * fRec7[1];
-			float fTemp6 = fConst30 * fTemp5;
-			output0[i0] = FAUSTFLOAT(fSlow3 * float(fTemp6 > 0.01f) * tanhf(fSlow2 * fTemp5) + float(fTemp6 <= 0.01f) * float((fTemp6 > 0.0f) - (fTemp6 < 0.0f)) * mydsp_faustpower2_f(std::fabs(fTemp6)) + fTemp4);
-			fRec18[0] = float(input1[i0]) - fConst32 * (fConst31 * fRec18[2] + fConst27 * fRec18[1]);
-			fRec17[0] = fConst32 * (fRec18[2] + fRec18[0] + 2.0f * fRec18[1]) - fConst30 * (fConst29 * fRec17[2] + fConst27 * fRec17[1]);
-			fRec16[0] = fConst30 * (fRec17[2] + fRec17[0] + 2.0f * fRec17[1]) - fConst32 * (fConst31 * fRec16[2] + fConst27 * fRec16[1]);
-			fRec15[0] = fConst32 * (fRec16[2] + fRec16[0] + 2.0f * fRec16[1]) - fConst30 * (fConst29 * fRec15[2] + fConst27 * fRec15[1]);
-			fRec14[0] = fConst30 * (fRec15[2] + fRec15[0] + 2.0f * fRec15[1]) - fConst32 * (fConst31 * fRec14[2] + fConst27 * fRec14[1]);
-			fRec13[0] = fConst32 * (fRec14[2] + fRec14[0] + 2.0f * fRec14[1]) - fConst30 * (fConst29 * fRec13[2] + fConst27 * fRec13[1]);
-			float fTemp7 = fRec13[2] + fRec13[0] + 2.0f * fRec13[1];
-			float fTemp8 = fConst30 * fTemp7;
-			output1[i0] = FAUSTFLOAT(float(fTemp8 <= 0.01f) * float((fTemp8 > 0.0f) - (fTemp8 < 0.0f)) * mydsp_faustpower2_f(std::fabs(fTemp8)) + fTemp4 + fSlow3 * float(fTemp8 > 0.01f) * tanhf(fSlow2 * fTemp7));
+			float fTemp4 = float(input0[i0]);
+			float fTemp5 = fSlow2 * tanhf(fSlow1 * fTemp4);
+			fVec3[0] = fTemp5;
+			fRec8[0] = -(fConst32 * (fConst31 * fRec8[1] - (fTemp5 + fVec3[1])));
+			fRec7[0] = fRec8[0] - fConst30 * (fConst29 * fRec7[2] + fConst27 * fRec7[1]);
+			float fTemp6 = std::fabs(fTemp4);
+			fVec4[0] = fTemp6;
+			fRec9[0] = -(fConst35 * (fConst34 * fRec9[1] - (fTemp6 + fVec4[1])));
+			float fTemp7 = std::max<float>(0.0f, std::min<float>(1.0f, 1e+01f * (fRec9[0] + -0.05f)));
+			float fTemp8 = std::pow(fTemp6, fSlow3) * (1.0f - fTemp7) * float((fTemp4 > 0.0f) - (fTemp4 < 0.0f)) + fConst30 * fTemp7 * (fRec7[2] + fRec7[0] + 2.0f * fRec7[1]) + fSlow0 * (fConst25 * (fRec1[2] + (fRec1[0] - 2.0f * fRec1[1])) + 0.1f * float(iTemp2 * (iTemp2 > 0)));
+			output0[i0] = FAUSTFLOAT(fTemp8);
+			output1[i0] = FAUSTFLOAT(fTemp8);
 			iRec0[1] = iRec0[0];
 			fVec0[1] = fVec0[0];
 			iVec1[1] = iVec1[0];
@@ -10673,30 +10646,12 @@ struct mydsp : public dsp {
 			fRec2[1] = fRec2[0];
 			fRec1[2] = fRec1[1];
 			fRec1[1] = fRec1[0];
-			fRec12[2] = fRec12[1];
-			fRec12[1] = fRec12[0];
-			fRec11[2] = fRec11[1];
-			fRec11[1] = fRec11[0];
-			fRec10[2] = fRec10[1];
-			fRec10[1] = fRec10[0];
-			fRec9[2] = fRec9[1];
-			fRec9[1] = fRec9[0];
-			fRec8[2] = fRec8[1];
+			fVec3[1] = fVec3[0];
 			fRec8[1] = fRec8[0];
 			fRec7[2] = fRec7[1];
 			fRec7[1] = fRec7[0];
-			fRec18[2] = fRec18[1];
-			fRec18[1] = fRec18[0];
-			fRec17[2] = fRec17[1];
-			fRec17[1] = fRec17[0];
-			fRec16[2] = fRec16[1];
-			fRec16[1] = fRec16[0];
-			fRec15[2] = fRec15[1];
-			fRec15[1] = fRec15[0];
-			fRec14[2] = fRec14[1];
-			fRec14[1] = fRec14[0];
-			fRec13[2] = fRec13[1];
-			fRec13[1] = fRec13[0];
+			fVec4[1] = fVec4[0];
+			fRec9[1] = fRec9[0];
 		}
 	}
 
@@ -10707,17 +10662,19 @@ struct mydsp : public dsp {
 	#define FAUST_FILE_NAME "vinyle.dsp"
 	#define FAUST_CLASS_NAME "mydsp"
 	#define FAUST_COMPILATION_OPIONS "-a /usr/local/share/faust/teensy/teensy.cpp -lang cpp -i -ct 1 -es 1 -mcd 16 -mdd 1024 -mdy 33 -uim -single -ftz 0"
-	#define FAUST_INPUTS 2
+	#define FAUST_INPUTS 1
 	#define FAUST_OUTPUTS 2
-	#define FAUST_ACTIVES 2
+	#define FAUST_ACTIVES 3
 	#define FAUST_PASSIVES 0
 
-	FAUST_ADDHORIZONTALSLIDER("effet vinyle", fHslider0, 0.5f, 0.1f, 2.0f, 0.01f);
-	FAUST_ADDHORIZONTALSLIDER("saturation", fHslider1, 1.0f, 0.1f, 25.0f, 0.1f);
+	FAUST_ADDHORIZONTALSLIDER("bsoft", fHslider2, 1.0f, 1.0f, 2.0f, 0.1f);
+	FAUST_ADDHORIZONTALSLIDER("effet vinyle", fHslider0, 0.5f, 0.01f, 4.0f, 0.01f);
+	FAUST_ADDHORIZONTALSLIDER("saturation", fHslider1, 0.001f, 0.001f, 5.0f, 0.001f);
 
 	#define FAUST_LIST_ACTIVES(p) \
-		p(HORIZONTALSLIDER, effet_vinyle, "effet vinyle", fHslider0, 0.5f, 0.1f, 2.0f, 0.01f) \
-		p(HORIZONTALSLIDER, saturation, "saturation", fHslider1, 1.0f, 0.1f, 25.0f, 0.1f) \
+		p(HORIZONTALSLIDER, bsoft, "bsoft", fHslider2, 1.0f, 1.0f, 2.0f, 0.1f) \
+		p(HORIZONTALSLIDER, effet_vinyle, "effet vinyle", fHslider0, 0.5f, 0.01f, 4.0f, 0.01f) \
+		p(HORIZONTALSLIDER, saturation, "saturation", fHslider1, 0.001f, 0.001f, 5.0f, 0.001f) \
 
 	#define FAUST_LIST_PASSIVES(p) \
 

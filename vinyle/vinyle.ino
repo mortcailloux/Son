@@ -5,6 +5,8 @@ vinyle inyle;
 
 AudioInputI2S audioInput;
 AudioOutputI2S out;
+
+
 AudioControlSGTL5000 audioShield;
 AudioConnection patchCord0(audioInput, 0, inyle, 0); // Envoie le signal gauche à Faust
 AudioConnection patchCord1(audioInput, 1, inyle, 1); // Envoie le signal droit à Faust
@@ -24,7 +26,8 @@ void loop() {
 
   inyle.setParamValue("effet vinyle",(0.001*sensorValue));
   inyle.setParamValue("saturation",0.01+(0.001*sensorValue));
-  inyle.setParamValue("Mix Saturation",0.001*sensorValue);
+  inyle.setParamValue("bsoft",1+0.001*sensorValue);
+  
   delay(50);
   audioShield.volume(0.001*sensorValue2);
 }
