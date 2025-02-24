@@ -28,7 +28,7 @@ app.post("/init",(req,res)=>{
         if (err) {
             console.error("Erreur d'ouverture du port :", err.message);
         } else {
-            console.log(`Connexion série ouverte sur ${port}`);
+            console.log(`Connexion série ouverte sur COM${com}`);
         }
     });
 

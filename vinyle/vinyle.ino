@@ -33,20 +33,23 @@ void loop() {
           // Exemple de format attendu : "V50 S30 B20"
           char param = input.charAt(0);  // Premier caractère
           float value = input.substring(1).toFloat() / 100.0; // Convertir en float (0.0 - 1.0)
-          if (param=="V"){
+          if (param=='V'){
             effetVinyle = value;
-
+            Serial.println("vinyle");
           }
           else{
-            if (param=="S"){
+            if (param=='S'){
               saturation = value;
+              Serial.println("saturation");
             }
             else{
-              if(param=="B"){
+              if(param=='B'){
                 bsoft = 1.0 + value;
+                Serial.println("bsoft");
               }
-              else if(param=="L"){
+              else if(param=='L'){
                 volume = value;
+                Serial.println("Volume");
               }
             }
           }
