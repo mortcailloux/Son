@@ -19,6 +19,8 @@ function main(){
 
 main() */
 
+const serv_port=80;
+
 async function envoyerParam(parametre,valeur){
     const com = document.getElementById("COM").value;
     console.log("envoi des parametres");
@@ -29,7 +31,7 @@ async function envoyerParam(parametre,valeur){
         return;
     }
     try {
-        let reponse=await fetch("http://localhost:65535/set",{method:"POST",
+        let reponse=await fetch(`http://localhost:${serv_port}/set`,{method:"POST",
          headers:{"Content-Type": "application/json" },
          body: JSON.stringify({ param: parametre, value: valeur })});
         let retour=await reponse.text();
@@ -44,7 +46,7 @@ async function init(port) {
     try{
 
     
-    let reponse=await fetch("http://localhost:65535/init",{method:"POST",
+    let reponse=await fetch(`http://localhost:${serv_port}/init`,{method:"POST",
     headers:{"Content-Type": "application/json" },
     body: JSON.stringify({ com: port })
     });
