@@ -3,36 +3,29 @@ const SerialPort = require("serialport");
 const cors = require("cors");
 
 const app = express();
-const port = 65535;
-
+const port = 65535; 
 app.use(cors());
 app.use(express.json());
-app.post("/init",(req,res)=>{
-    console.log(req.body)
-    var { com } = req.body;
-    if (!com) {
-        return res.status(400).send("Port COM manquant");
-    }
-    if (global.serial) {
-        global.serial.close(() => {
-            console.log("Ancienne connexion série fermée.");
-        });
-    }
-    com=Math.round(com);
-    global.serial = new SerialPort.SerialPort({
-        path: `COM${com}`,
+app.use(express.static("/app/public"));
+app.get("/", (req, res) => {
+    res.sendFile("/app/public/index.html");
+});
+
+
+global.serial = new SerialPort.SerialPort({ //les variables globales servent plus à rien maintenant
+        path: `/dev/ttyS3`,
         baudRate: 115200,
         autoOpen: false
     });
-    global.serial.open((err) => {
+global.serial.open((err) => {
         if (err) {
             console.error("Erreur d'ouverture du port :", err.message);
         } else {
-            console.log(`Connexion série ouverte sur COM${com}`);
+            console.log(`Connexion série ouverte sur /dev/ttyS3`);
         }
     });
 
-})
+
 
 
 

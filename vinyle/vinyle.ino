@@ -34,17 +34,28 @@ void loop() {
           char param = input.charAt(0);  // Premier caractère
           float value = input.substring(1).toFloat() / 100.0; // Convertir en float (0.0 - 1.0)
           if (param=='V'){
-            effetVinyle = value;
+            if (value!=0){
+              effetVinyle = value*4;
+            }
+            else{
+              effetVinyle=0.01;
+            }
             Serial.println("vinyle");
           }
           else{
             if (param=='S'){
-              saturation = value;
+              if (value!=0){
+                saturation = value*5;
+              }
+               //valeur entre 0 et 5 avec offset pour pas que ça crash
+              else{
+                saturation=0.01;
+              }
               Serial.println("saturation");
             }
             else{
               if(param=='B'){
-                bsoft = 1.0 + value;
+                bsoft = 1.0 + value; //valeur entre 1 et 2
                 Serial.println("bsoft");
               }
               else if(param=='L'){

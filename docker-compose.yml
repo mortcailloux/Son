@@ -1,0 +1,16 @@
+services:
+  node:
+    build:
+      context: .
+      target: node_son
+      dockerfile: Dockerfile
+    image: node_son:latest
+    container_name: node_son
+    ports: 
+      - 80:65535
+      - "4562:4562"  # Port pour le pont COM
+    privileged: true
+    environment:
+      - COM_PORT=4
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

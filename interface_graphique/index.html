@@ -24,11 +24,7 @@
         Veuillez d'abord indiquer le numéro de COM sur lequel est branché le teensy (exemple COM:5, mettez 5)
         ensuite vous pourrez régler le volume
     </p>
-    <div>
-        <input type="number" id="COM" name="COM">
-        <label for="COM">Port COM </label>
-        <button onclick="init(document.getElementById('COM').value)">Se connecter au teensy</button>
-    </div>
+    
 
 
     <div>
@@ -37,13 +33,13 @@
     </div>
     <div>
         <input type="range" id="effet-vinyle" name="effet-vinyle" min="0" max="100" oninput="envoyerParam('V', this.value)">
-        <label for="effet-vinyle">Effet vinyle</label>
+        <label for="effet-vinyle">Bruit</label>
     </div>
-    <label>Saturation</label>
+    <label>Saturation parties fortes</label>
     <input type="range" id="saturation" min="0" max="100"  oninput="envoyerParam('S', this.value)">
     <br>
 
-    <label>saturation douche</label>
+    <label>Saturation parties faibles</label>
     <input type="range" id="bsoft" min="0" max="100"  oninput="envoyerParam('B', this.value)">
     <br>
 
