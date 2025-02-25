@@ -18,17 +18,17 @@
     </h1>
 
     <p>
-        Cette page sert  à régler le volume de sortie du teensy et à quel point est appliqué l'effet vinyle.
+        Cette page sert  à régler le volume de sortie du teensy et à quel point sont appliqués les différents effets.
 
     </p>
-    <p>
-        Veuillez d'abord indiquer le numéro de COM sur lequel est branché le teensy (exemple COM:5, mettez 5)
-        ensuite vous pourrez régler le volume
-    </p>
+    
     <div class="com" id="come">
+        <p>
+            Veuillez indiquer le numéro de port COM sur lequel est branché le teensy (exemple COM:5, mettez 5)
+            ensuite vous pourrez régler le volume
+        </p>
         <div class="elem">
             <label for="COM">Port COM </label>
-            <br>
             <input type="number" id="COM" name="COM">
             
             
@@ -42,7 +42,7 @@
             
         </div>
         <div class="elem">
-            <label for="effet-vinyle">Effet vinyle</label>
+            <label for="effet-vinyle">Bruit</label>
             <input type="range" id="effet-vinyle" name="effet-vinyle" min="0" max="100" oninput="envoyerParam('V', this.value)">
             
         </div>

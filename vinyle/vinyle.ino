@@ -34,7 +34,7 @@ void loop() {
           char param = input.charAt(0);  // Premier caractère
           float value = input.substring(1).toFloat() / 100.0; // Convertir en float (0.0 - 1.0)
           if (param=='V'){
-            effetVinyle = value;
+            effetVinyle = value*4;
             Serial.println("vinyle");
           }
           else{
