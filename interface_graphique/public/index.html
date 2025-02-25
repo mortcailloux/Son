@@ -62,7 +62,32 @@
 
 
 </body>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Sélectionner tous les inputs de type range
+    const rangeInputs = document.querySelectorAll('input[type="range"]');
+    
+    // Fonction pour mettre à jour la couleur de l'input range
+    function updateRangeColor(input) {
+        const value = input.value;
+        const max = input.max || 100;
+        const progress = (value / max) * 100 + '%';
+        input.style.setProperty('--range-progress', progress);
+    }
+    
+    // Pour chaque input range
+    rangeInputs.forEach(input => {
+        // Initialiser la couleur
+        updateRangeColor(input);
+        
+        // Mettre à jour la couleur lors des changements
+        input.addEventListener('input', function() {
+            updateRangeColor(this);
+        });
+    });
+});
+    </script>
+    
 
 
 
