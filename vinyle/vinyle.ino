@@ -39,8 +39,13 @@ void loop() {
           }
           else{
             if (param=='S'){
-              saturation = value;
-              Serial.println("saturation");
+              if (value!=0){
+                saturation = value*5;
+              }
+               //valeur entre 0 et 5 avec offset pour pas que ça crash
+              else{
+                saturation=0.01;
+              }
             }
             else{
               if(param=='B'){
