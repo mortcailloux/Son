@@ -25,37 +25,40 @@
         Veuillez d'abord indiquer le numéro de COM sur lequel est branché le teensy (exemple COM:5, mettez 5)
         ensuite vous pourrez régler le volume
     </p>
-    <div>
-        <label for="COM">Port COM </label>
-        <br>
-        <input type="number" id="COM" name="COM">
-        
-        
+    <div class="com" id="come">
+        <div class="elem">
+            <label for="COM">Port COM </label>
+            <br>
+            <input type="number" id="COM" name="COM">
+            
+            
+        </div>
+        <button onclick="init(document.getElementById('COM').value)">Se connecter au teensy</button>
     </div>
-    <button onclick="init(document.getElementById('COM').value)">Se connecter au teensy</button>
-
-    <div>
-        <label for="volume">Volume</label>
-        <input type="range" id="volume" name="volume" min="0" max="100" oninput="envoyerParam('L', this.value)">
+    <div class="reglages" id="reg">
+        <div class="elem">
+            <label for="volume">Volume</label>
+            <input type="range" id="volume" name="volume" min="0" max="100" oninput="envoyerParam('L', this.value)">
+            
+        </div>
+        <div class="elem">
+            <label for="effet-vinyle">Effet vinyle</label>
+            <input type="range" id="effet-vinyle" name="effet-vinyle" min="0" max="100" oninput="envoyerParam('V', this.value)">
+            
+        </div>
+        <div class="elem">
+            <label>Saturation parties fortes</label>
+            <input type="range" id="saturation" min="0" max="100"  oninput="envoyerParam('S', this.value)">
+            
+        </div>
+        <div class="elem">
+            <label>Saturation parties faibles</label>
+            <input type="range" id="bsoft" min="0" max="100"  oninput="envoyerParam('B', this.value)">
+            
         
+        </div>
     </div>
-    <div>
-        <label for="effet-vinyle">Effet vinyle</label>
-        <input type="range" id="effet-vinyle" name="effet-vinyle" min="0" max="100" oninput="envoyerParam('V', this.value)">
-        
-    </div>
-    <div>
-        <label>Saturation parties fortes</label>
-        <input type="range" id="saturation" min="0" max="100"  oninput="envoyerParam('S', this.value)">
-        
-    </div>
-    <div>
-        <label>Saturation parties faibles</label>
-        <input type="range" id="bsoft" min="0" max="100"  oninput="envoyerParam('B', this.value)">
-        
-      
-    </div>
-
+    <br><br>
     <a href="/src/posterSon.pdf">
         <button> Affiche du projet</button>
     </a>

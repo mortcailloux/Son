@@ -13,7 +13,9 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 app.post("/init",(req,res)=>{
-    console.log(req.body)
+    console.log(req.body);
+    
+
     var { com } = req.body;
     if (!com) {
         return res.status(400).send("Port COM manquant");

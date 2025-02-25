@@ -43,6 +43,12 @@ async function envoyerParam(parametre,valeur){
 }
 
 async function init(port) {
+    const show=document.getElementById("reg");
+    const hide=document.getElementById("come");
+
+    show.style.display="block";
+    hide.style.display="none";
+
     try{
 
     
@@ -52,8 +58,10 @@ async function init(port) {
     });
     let retour=reponse.text();
     console.log(retour);
+     
     }
     catch (error){
         console.error("erreur initialisation:",error);
-    }    
+    }
+    
 }

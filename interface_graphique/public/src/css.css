@@ -166,7 +166,7 @@ label {
 }
 
 /* Mise en page */
-div {
+.elem {
     background-color: #b783b7;
     color: white;
     padding: 20px;
@@ -179,6 +179,12 @@ div {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.com{
+    display: block;
+}
+.reglages{
+    display:none;
+}
 
 
 /* Responsive design */
